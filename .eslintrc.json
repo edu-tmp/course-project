@@ -4,11 +4,7 @@
     "es2021": true,
     "node": true
   },
-  "extends": [
-    "eslint:recommended",
-    "plugin:react/recommended",
-    "plugin:import/recommended"
-  ],
+  "extends": ["eslint:recommended", "plugin:react/recommended", "plugin:import/recommended"],
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true
@@ -24,6 +20,5 @@
       }
     }
   },
-  "rules": {
-  }
+  "rules": {}
 }

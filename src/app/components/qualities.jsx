@@ -6,10 +6,7 @@ export default function Qualities({ qualities }) {
     <>
       {qualities.map((quality) => {
         return (
-          <span
-            key={'quality' + quality._id}
-            className={'badge m-1 bg-' + quality.color}
-          >
+          <span key={'quality' + quality._id} className={'badge m-1 bg-' + quality.color}>
             {quality.name}
           </span>
         );

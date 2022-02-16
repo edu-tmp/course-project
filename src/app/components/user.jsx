@@ -14,18 +14,10 @@ export default function User({ onToggle, onDelete, user }) {
       <td>{user.completedMeetings}</td>
       <td>{user.rate + '/5'}</td>
       <td>
-        <Bookmark
-          bookmark={user.bookmark}
-          onToggle={onToggle}
-          userId={user._id}
-        />
+        <Bookmark bookmark={user.bookmark} onToggle={onToggle} userId={user._id} />
       </td>
       <td>
-        <button
-          type="button"
-          className="btn bg-danger"
-          onClick={() => onDelete(user._id)}
-        >
+        <button type="button" className="btn bg-danger" onClick={() => onDelete(user._id)}>
           Remove
         </button>
       </td>

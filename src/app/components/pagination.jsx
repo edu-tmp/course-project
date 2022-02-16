@@ -2,12 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 
-export default function Pagination({
-  itemsCount,
-  pageSize,
-  onPageChange,
-  curPage,
-}) {
+export default function Pagination({ itemsCount, pageSize, onPageChange, curPage }) {
   const pageCount = Math.ceil(itemsCount / pageSize);
   return (
     pageCount > 1 && (
@@ -15,10 +10,7 @@ export default function Pagination({
         <ul className="pagination">
           {_.range(1, pageCount + 1).map((i) => {
             return (
-              <li
-                key={i}
-                className={'page-item' + (i === curPage ? ' active' : '')}
-              >
+              <li key={i} className={'page-item' + (i === curPage ? ' active' : '')}>
                 <button className="page-link" onClick={() => onPageChange(i)}>
                   {i}
                 </button>

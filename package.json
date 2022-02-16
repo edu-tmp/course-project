@@ -30,7 +30,7 @@
     "bracketSpacing": true,
     "arrowParens": "always",
     "endOfLine": "lf",
-    "printWidth": 80
+    "printWidth": 120
   },
   "eslintConfig": {
     "extends": [
