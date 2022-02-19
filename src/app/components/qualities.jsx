@@ -1,6 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+Qualities.propTypes = {
+  qualities: PropTypes.array.isRequired,
+};
+
 export default function Qualities({ qualities }) {
   return (
     <>
@@ -14,7 +18,3 @@ export default function Qualities({ qualities }) {
     </>
   );
 }
-
-Qualities.propTypes = {
-  qualities: PropTypes.array.isRequired,
-};

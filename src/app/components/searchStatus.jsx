@@ -1,6 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+SearchStatus.propTypes = {
+  count: PropTypes.number,
+};
+
 export default function SearchStatus({ count }) {
   const comparator = count > 20 ? count - Math.trunc(count / 10) : count;
   return (
@@ -21,7 +25,3 @@ export default function SearchStatus({ count }) {
     </h5>
   );
 }
-
-SearchStatus.propTypes = {
-  count: PropTypes.number,
-};
