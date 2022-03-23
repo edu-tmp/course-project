@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import Bookmark from './bookmark';
 import Qualities from './qualities';
 import Table from './table';
+// import user from './user';
 
 UsersTable.propTypes = {
   users: PropTypes.array.isRequired,
@@ -14,7 +16,7 @@ UsersTable.propTypes = {
 
 export default function UsersTable({ users, onSort, curSort, onToggle, onDelete, ...rest }) {
   const columns = {
-    name: { iter: 'name', name: 'Имя' },
+    name: { iter: 'name', name: 'Имя', component: (user) => <Link to={`/users/${user._id}`}>{user.name}</Link> },
     qualities: { name: 'Качества', component: (user) => <Qualities qualities={user.qualities} /> },
     profession: { iter: 'profession.name', name: 'Профессия' },
     completedMeetings: { iter: 'completedMeetings', name: 'Встреч' },
