@@ -44,6 +44,8 @@ export default function Users() {
 
   const [selectedProf, setSelectedProf] = useState();
 
+  const [searchQuery, setSearchQuery] = useState('');
+
   const [sortBy, setSortBy] = useState({ iter: 'name', order: 'asc' });
 
   useEffect(() => {
@@ -52,6 +54,7 @@ export default function Users() {
 
   function handleProfessionSelect(selectedItem) {
     setCurPage(1);
+    if (searchQuery !== '') setSearchQuery('');
     setSelectedProf(selectedItem);
   }
 
@@ -63,8 +66,14 @@ export default function Users() {
     setSortBy(item);
   }
 
+  function handleSearchQuery({ target }) {
+    setSelectedProf(undefined);
+    setSearchQuery(target.value);
+  }
   if (users) {
-    const filteredUsers = selectedProf
+    const filteredUsers = searchQuery
+      ? users.filter((user) => user.name.toLowerCase().indexOf(searchQuery.toLowerCase()) !== -1)
+      : selectedProf
       ? users.filter((user) => {
           return user.profession._id === selectedProf._id;
         })
@@ -87,6 +96,13 @@ export default function Users() {
         )}
         <div className="d-flex flex-column">
           <SearchStatus count={filteredUsers.length} />
+          <input
+            type="text"
+            name="searchQuery"
+            placeholder="Search..."
+            onChange={handleSearchQuery}
+            value={searchQuery}
+          />
           {users.length > 0 && (
             <UsersTable
               users={cropUsers}
