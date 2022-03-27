@@ -1,23 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-SelectField.propTypes = {
-  defaultOption: PropTypes.string,
-  label: PropTypes.string,
-  value: PropTypes.string,
-  onChange: PropTypes.func,
-  error: PropTypes.string,
-  options: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
-  name: PropTypes.string,
-};
-
-export default function SelectField({ label, value, onChange, defaultOption, options, error, name }) {
-  function handleChange({ target }) {
+const SelectField = ({ label, value, onChange, defaultOption, options, error }) => {
+  const handleChange = ({ target }) => {
     onChange({ name: target.name, value: target.value });
-  }
-  function getInputClasses() {
+  };
+  const getInputClasses = () => {
     return 'form-select' + (error ? ' is-invalid' : '');
-  }
+  };
 
   const optionsArray =
     !Array.isArray(options) && typeof options === 'object'
@@ -32,8 +22,14 @@ export default function SelectField({ label, value, onChange, defaultOption, opt
       <label htmlFor="validationCustom04" className="form-label">
         {label}
       </label>
-      <select className={getInputClasses()} id="validationCustom04" name={name} value={value} onChange={handleChange}>
-        <option key='default' disabled value="">
+      <select
+        className={getInputClasses()}
+        id="validationCustom04"
+        name="profession"
+        value={value}
+        onChange={handleChange}
+      >
+        <option disabled value="">
           {defaultOption}
         </option>
         {optionsArray &&
@@ -46,4 +42,14 @@ export default function SelectField({ label, value, onChange, defaultOption, opt
       {error && <div className="invalid-feedback">{error}</div>}
     </div>
   );
-}
+};
+SelectField.propTypes = {
+  defaultOption: PropTypes.string,
+  label: PropTypes.string,
+  value: PropTypes.string,
+  onChange: PropTypes.func,
+  error: PropTypes.string,
+  options: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+};
+
+export default SelectField;

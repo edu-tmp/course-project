@@ -1,11 +1,13 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
-import UsersList from '../components/page/usersListPage';
-import User from '../components/page/userPage';
-import EditUser from '../components/page/editUserPage';
+import { useParams, Redirect } from 'react-router-dom';
+import EditUserPage from '../components/page/editUserPage';
 
-export default function Users() {
-  const params = useParams();
-  const { userId, edit } = params;
-  return <>{userId ? edit ? <EditUser /> : <User userId={userId} /> : <UsersList />}</>;
-}
+const Users = () => {
+  const { userId } = useParams();
+  if (!userId) {
+    return <Redirect from="/users" to="/users/67rdca3eeb7f6fgeed471815" />;
+  }
+  return <EditUserPage />;
+};
+
+export default Users;

@@ -1,5 +1,13 @@
 import React from 'react';
+import Title from '../components/common/typografy/title';
 
-export default function Main() {
-  return <p>Main</p>;
-}
+const Main = () => {
+  return (
+    <>
+      {' '}
+      <Title> Extended Hooks и Оптимизация</Title>
+    </>
+  );
+};
+
+export default Main;
