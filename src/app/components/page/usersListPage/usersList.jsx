@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import _ from 'lodash';
-import UsersTable from './usersTable';
-import SearchStatus from './searchStatus';
-import api from '../api/api';
-import Pagination from './pagination';
-import GroupList from './groupList';
-import paginate from '../utils/paginate';
+import UsersTable from '../../ui/usersTable';
+import SearchStatus from '../../ui/searchStatus';
+import api from '../../../api';
+import Pagination from '../../common/pagination';
+import GroupList from '../../common/groupList';
+import paginate from '../../../utils/paginate';
 
 export default function Users() {
   const [users, setUsers] = useState();
