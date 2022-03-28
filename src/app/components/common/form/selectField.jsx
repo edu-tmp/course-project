@@ -33,7 +33,7 @@ export default function SelectField({ label, value, onChange, defaultOption, opt
         {label}
       </label>
       <select className={getInputClasses()} id="validationCustom04" name={name} value={value} onChange={handleChange}>
-        <option key='default' disabled value="">
+        <option key="default" disabled value="">
           {defaultOption}
         </option>
         {optionsArray &&

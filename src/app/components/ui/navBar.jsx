@@ -8,11 +8,17 @@ const routes = [
 ];
 
 export default function NavBar() {
-  return routes.map((route, index) => {
-    return (
-      <Link key={index} to={route.link}>
-        {route.name}
-      </Link>
-    );
-  });
+  return (
+    <ul className="nav">
+      {routes.map((route, index) => {
+        return (
+          <li className="nav-item" key={index}>
+            <Link className="nav-link" aria-current="page" to={route.link}>
+              {route.name}
+            </Link>
+          </li>
+        );
+      })}
+    </ul>
+  );
 }
