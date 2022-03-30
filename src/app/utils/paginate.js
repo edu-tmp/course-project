@@ -1,3 +1,6 @@
-export default function paginate(items, pageNumber, pageSize) {
-  return [...items].splice((pageNumber - 1) * pageSize, pageSize);
+import _ from "lodash";
+
+export function paginate(items, pageNumber, pageSize) {
+    const startIndex = (pageNumber - 1) * pageSize;
+    return _(items).slice(startIndex).take(pageSize).value();
 }

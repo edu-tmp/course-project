@@ -1,21 +1,26 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import TableHeader from './tableHeader';
-import TableBody from './tableBody';
+import React from "react";
+import PropTypes from "prop-types";
+import TableBody from "./tableBody";
+import TableHeader from "./tableHeader";
 
+const Table = ({ onSort, selectedSort, columns, data, children }) => {
+    return (
+        <table className="table">
+            {children || (
+                <>
+                    <TableHeader {...{ onSort, selectedSort, columns }} />
+                    <TableBody {...{ columns, data }} />
+                </>
+            )}
+        </table>
+    );
+};
 Table.propTypes = {
-  onSort: PropTypes.func,
-  curSort: PropTypes.object,
-  columns: PropTypes.object,
-  data: PropTypes.arrayOf(PropTypes.object),
-  idProp: PropTypes.string,
+    onSort: PropTypes.func,
+    selectedSort: PropTypes.object,
+    columns: PropTypes.object,
+    data: PropTypes.array,
+    children: PropTypes.array
 };
 
-export default function Table({ onSort, curSort, columns, data, idProp, ...rest }) {
-  return (
-    <table className="table">
-      <TableHeader {...{ onSort, curSort, columns }} />
-      <TableBody {...{ data, idProp, columns, ...rest }} />
-    </table>
-  );
-}
+export default Table;

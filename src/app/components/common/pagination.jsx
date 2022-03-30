@@ -1,31 +1,41 @@
-import React from 'react';
-import _ from 'lodash';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
+import _ from "lodash";
+const Pagination = ({ itemsCount, pageSize, onPageChange, currentPage }) => {
+    const pagesCount = Math.ceil(itemsCount / pageSize);
+    if (pagesCount === 1) return null;
+    const pages = _.range(1, pagesCount + 1);
 
+    return (
+        <nav>
+            <ul className="pagination">
+                {pages.map((page) => (
+                    <li
+                        className={
+                            "page-item " +
+                            (page === currentPage ? "active" : "")
+                        }
+                        key={"page_" + page}
+                    >
+                        <button
+                            className="page-link"
+                            onClick={() => {
+                                onPageChange(page);
+                            }}
+                        >
+                            {page}
+                        </button>
+                    </li>
+                ))}
+            </ul>
+        </nav>
+    );
+};
 Pagination.propTypes = {
-  itemsCount: PropTypes.number.isRequired,
-  pageSize: PropTypes.number.isRequired,
-  onPageChange: PropTypes.func.isRequired,
-  curPage: PropTypes.number.isRequired,
+    itemsCount: PropTypes.number.isRequired,
+    pageSize: PropTypes.number.isRequired,
+    currentPage: PropTypes.number.isRequired,
+    onPageChange: PropTypes.func.isRequired
 };
 
-export default function Pagination({ itemsCount, pageSize, onPageChange, curPage }) {
-  const pageCount = Math.ceil(itemsCount / pageSize);
-  return (
-    pageCount > 1 && (
-      <nav>
-        <ul className="pagination">
-          {_.range(1, pageCount + 1).map((i) => {
-            return (
-              <li key={i} className={'page-item' + (i === curPage ? ' active' : '')}>
-                <button className="page-link" onClick={() => onPageChange(i)}>
-                  {i}
-                </button>
-              </li>
-            );
-          })}
-        </ul>
-      </nav>
-    )
-  );
-}
+export default Pagination;

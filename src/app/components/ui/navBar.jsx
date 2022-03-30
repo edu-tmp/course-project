@@ -1,24 +1,25 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
+const NavBar = () => {
+    return (
+        <ul className="nav">
+            <li className="nav-item">
+                <Link className="nav-link " aria-current="page" to="/">
+                    Main
+                </Link>
+            </li>
+            <li className="nav-item">
+                <Link className="nav-link " aria-current="page" to="/login">
+                    Login
+                </Link>
+            </li>
+            <li className="nav-item">
+                <Link className="nav-link " aria-current="page" to="/users">
+                    Users
+                </Link>
+            </li>
+        </ul>
+    );
+};
 
-const routes = [
-  { name: 'Main', link: '/' },
-  { name: 'Login', link: '/login' },
-  { name: 'Users', link: '/users' },
-];
-
-export default function NavBar() {
-  return (
-    <ul className="nav">
-      {routes.map((route, index) => {
-        return (
-          <li className="nav-item" key={index}>
-            <Link className="nav-link" aria-current="page" to={route.link}>
-              {route.name}
-            </Link>
-          </li>
-        );
-      })}
-    </ul>
-  );
-}
+export default NavBar;
