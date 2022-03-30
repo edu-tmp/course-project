@@ -1,5 +1,7 @@
-import React from 'react';
+import React from "react";
 
-export default function Main() {
-  return <p>Main</p>;
-}
+const Main = () => {
+    return <h1> Main Page</h1>;
+};
+
+export default Main;

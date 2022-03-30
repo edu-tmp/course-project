@@ -1,27 +1,29 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-
+import React from "react";
+import PropTypes from "prop-types";
+const SearchStatus = ({ length }) => {
+    const renderPhrase = (number) => {
+        const lastOne = Number(number.toString().slice(-1));
+        if (number > 4 && number < 15) {
+            return "человек тусанет";
+        }
+        if (lastOne === 1) return "человек тусанет";
+        if ([2, 3, 4].indexOf(lastOne) >= 0) return "человека тусанут";
+        return "человек тусанет";
+    };
+    return (
+        <h2>
+            <span
+                className={"badge " + (length > 0 ? "bg-primary" : "bg-danger")}
+            >
+                {length > 0
+                    ? `${length + " " + renderPhrase(length)}   с тобой сегодня`
+                    : "Никто с тобой не тусанет"}
+            </span>
+        </h2>
+    );
+};
 SearchStatus.propTypes = {
-  count: PropTypes.number,
+    length: PropTypes.number
 };
 
-export default function SearchStatus({ count }) {
-  const comparator = count > 20 ? count - Math.trunc(count / 10) : count;
-  return (
-    <h5>
-      {count > 0 ? (
-        <div className="badge m-1 bg-primary">
-          {count +
-            (comparator === 1
-              ? ' человек может '
-              : comparator > 4 || comparator === 0
-              ? ' человек могут '
-              : ' человека могут ')}{' '}
-          с Вами встретиться
-        </div>
-      ) : (
-        <div className="badge m-1 bg-danger">Одно из представлений одиночества:</div>
-      )}
-    </h5>
-  );
-}
+export default SearchStatus;

@@ -1,44 +1,53 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
+const TableHeader = ({ onSort, selectedSort, columns }) => {
+    const handleSort = (item) => {
+        if (selectedSort.path === item) {
+            onSort({
+                ...selectedSort,
+                order: selectedSort.order === "asc" ? "desc" : "asc"
+            });
+        } else {
+            onSort({ path: item, order: "asc" });
+        }
+    };
+    const rendeSortArrow = (selectedSort, currentPath) => {
+        if (selectedSort.path === currentPath) {
+            if (selectedSort.order === "asc") {
+                return <i className="bi bi-caret-down-fill"></i>;
+            } else {
+                return <i className="bi bi-caret-up-fill"></i>;
+            }
+        }
+        return null;
+    };
 
+    return (
+        <thead>
+            <tr>
+                {Object.keys(columns).map((column) => (
+                    <th
+                        key={column}
+                        onClick={
+                            columns[column].path
+                                ? () => handleSort(columns[column].path)
+                                : undefined
+                        }
+                        {...{ role: columns[column].path && "button" }}
+                        scope="col"
+                    >
+                        {columns[column].name}{" "}
+                        {rendeSortArrow(selectedSort, columns[column].path)}
+                    </th>
+                ))}
+            </tr>
+        </thead>
+    );
+};
 TableHeader.propTypes = {
-  onSort: PropTypes.func.isRequired,
-  curSort: PropTypes.object.isRequired,
-  columns: PropTypes.object.isRequired,
+    onSort: PropTypes.func.isRequired,
+    selectedSort: PropTypes.object.isRequired,
+    columns: PropTypes.object.isRequired
 };
 
-export default function TableHeader({ onSort, curSort, columns }) {
-  function handleSort(item) {
-    item === curSort.iter
-      ? onSort({ ...curSort, order: curSort.order === 'asc' ? 'desc' : 'asc' })
-      : onSort({ iter: item, order: 'asc' });
-  }
-
-  return (
-    <thead>
-      <tr>
-        {Object.keys(columns).map((col) => {
-          return (
-            <th
-              scope="col"
-              key={col}
-              onClick={columns[col].iter ? () => handleSort(columns[col].iter) : undefined}
-              {...{ role: columns[col].iter && 'button' }}
-            >
-              {columns[col].name}
-              <i
-                className={
-                  curSort.iter === columns[col].iter
-                    ? curSort.order === 'asc'
-                      ? 'bi bi-sort-down-alt'
-                      : 'bi bi-sort-down'
-                    : ''
-                }
-              ></i>
-            </th>
-          );
-        })}
-      </tr>
-    </thead>
-  );
-}
+export default TableHeader;
