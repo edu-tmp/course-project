@@ -27,12 +27,12 @@ const SelectField = ({
 
     return (
         <div className="mb-4">
-            <label htmlFor={name} className="form-label">
+            <label htmlFor="validationCustom04" className="form-label">
                 {label}
             </label>
             <select
                 className={getInputClasses()}
-                id={name}
+                id="validationCustom04"
                 name={name}
                 value={value}
                 onChange={handleChange}
@@ -43,7 +43,7 @@ const SelectField = ({
                 {optionsArray &&
                     optionsArray.map((option) => (
                         <option value={option.value} key={option.value}>
-                            {option.name}
+                            {option.label}
                         </option>
                     ))}
             </select>
@@ -51,7 +51,6 @@ const SelectField = ({
         </div>
     );
 };
-
 SelectField.propTypes = {
     defaultOption: PropTypes.string,
     label: PropTypes.string,
