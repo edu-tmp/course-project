@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { validator } from "../../utils/ validator";
+import { validator } from "../../utils/validator";
 import TextField from "../common/form/textField";
 import CheckBoxField from "../common/form/checkBoxField";
 import { useAuth } from "../../hooks/useAuth";
@@ -23,7 +23,7 @@ const LoginForm = () => {
         setEnterError(null);
     };
 
-    const validatorConfog = {
+    const validatorConfig = {
         email: {
             isRequired: {
                 message: "Электронная почта обязательна для заполнения"
@@ -31,7 +31,7 @@ const LoginForm = () => {
         },
         password: {
             isRequired: {
-                message: "Пароль обязателкн для заполнения"
+                message: "Пароль обязателен для заполнения"
             }
         }
     };
@@ -39,7 +39,7 @@ const LoginForm = () => {
         validate();
     }, [data]);
     const validate = () => {
-        const errors = validator(data, validatorConfog);
+        const errors = validator(data, validatorConfig);
         setErrors(errors);
         return Object.keys(errors).length === 0;
     };
@@ -83,9 +83,9 @@ const LoginForm = () => {
             </CheckBoxField>
             {enterError && <p className="text-danger">{enterError}</p>}
             <button
+                className="btn btn-primary w-100 mx-auto"
                 type="submit"
                 disabled={!isValid || enterError}
-                className="btn btn-primary w-100 mx-auto"
             >
                 Submit
             </button>

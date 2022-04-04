@@ -40,15 +40,15 @@ const AuthProvider = ({ children }) => {
                 switch (message) {
                     case "INVALID_PASSWORD":
                         throw new Error("Email или пароль введены некорректно");
-
                     default:
                         throw new Error(
-                            "Слишком много попыток входа. Попробуйте позднее"
+                            "Слишком много попыток входа. Попробуйте позже"
                         );
                 }
             }
         }
     }
+
     async function signUp({ email, password, ...rest }) {
         try {
             const { data } = await httpAuth.post(`accounts:signUp`, {
@@ -57,7 +57,6 @@ const AuthProvider = ({ children }) => {
                 returnSecureToken: true
             });
             setTokens(data);
-
             await createUser({ _id: data.localId, email, ...rest });
         } catch (error) {
             errorCatcher(error);
@@ -76,7 +75,7 @@ const AuthProvider = ({ children }) => {
     }
     async function createUser(data) {
         try {
-            const { content } = await userService.create(data);
+            const { content } = userService.create(data);
             setUser(content);
         } catch (error) {
             errorCatcher(error);

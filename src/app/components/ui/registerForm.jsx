@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { validator } from "../../utils/ validator";
+import { validator } from "../../utils/validator";
 import TextField from "../common/form/textField";
 import SelectField from "../common/form/selectField";
-import RadioField from "../common/form/radio.Field";
+import RadioField from "../common/form/radioField";
 import MultiSelectField from "../common/form/multiSelectField";
 import CheckBoxField from "../common/form/checkBoxField";
 import { useQualities } from "../../hooks/useQualities";
@@ -39,7 +39,7 @@ const RegisterForm = () => {
             [target.name]: target.value
         }));
     };
-    const validatorConfog = {
+    const validatorConfig = {
         email: {
             isRequired: {
                 message: "Электронная почта обязательна для заполнения"
@@ -50,7 +50,7 @@ const RegisterForm = () => {
         },
         password: {
             isRequired: {
-                message: "Пароль обязательна для заполнения"
+                message: "Пароль обязателен для заполнения"
             },
             isCapitalSymbol: {
                 message: "Пароль должен содержать хотя бы одну заглавную букву"
@@ -59,7 +59,7 @@ const RegisterForm = () => {
                 message: "Пароль должен содержать хотя бы одно число"
             },
             min: {
-                message: "Пароль должен состаять миниму из 8 символов",
+                message: "Пароль должен состоять минимум из 8 символов",
                 value: 8
             }
         },
@@ -71,7 +71,7 @@ const RegisterForm = () => {
         licence: {
             isRequired: {
                 message:
-                    "Вы не можете использовать наш сервис без подтреврждения лицензионного соглашения"
+                    "Вы не можете использовать наш сервис без подтверждения лицензионного соглашения"
             }
         }
     };
@@ -79,7 +79,7 @@ const RegisterForm = () => {
         validate();
     }, [data]);
     const validate = () => {
-        const errors = validator(data, validatorConfog);
+        const errors = validator(data, validatorConfig);
         setErrors(errors);
         return Object.keys(errors).length === 0;
     };
@@ -93,6 +93,7 @@ const RegisterForm = () => {
             ...data,
             qualities: data.qualities.map((q) => q.value)
         };
+
         try {
             await signUp(newData);
             history.push("/");
@@ -121,8 +122,8 @@ const RegisterForm = () => {
             <SelectField
                 label="Выбери свою профессию"
                 defaultOption="Choose..."
-                name="profession"
                 options={professionsList}
+                name="profession"
                 onChange={handleChange}
                 value={data.profession}
                 error={errors.profession}
@@ -141,8 +142,9 @@ const RegisterForm = () => {
             <MultiSelectField
                 options={qualitiesList}
                 onChange={handleChange}
+                defaultValue={data.qualities}
                 name="qualities"
-                label="Выберите ваши качесвта"
+                label="Выберите ваши качества"
             />
             <CheckBoxField
                 value={data.licence}
@@ -153,9 +155,9 @@ const RegisterForm = () => {
                 Подтвердить <a>лицензионное соглашение</a>
             </CheckBoxField>
             <button
+                className="btn btn-primary w-100 mx-auto"
                 type="submit"
                 disabled={!isValid}
-                className="btn btn-primary w-100 mx-auto"
             >
                 Submit
             </button>

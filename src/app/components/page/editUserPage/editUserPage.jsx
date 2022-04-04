@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import { validator } from "../../../utils/ validator";
+import { validator } from "../../../utils/validator";
 import api from "../../../api";
 import TextField from "../../common/form/textField";
 import SelectField from "../../common/form/selectField";
-import RadioField from "../../common/form/radio.Field";
+import RadioField from "../../common/form/radioField";
 import MultiSelectField from "../../common/form/multiSelectField";
 import BackHistoryButton from "../../common/backButton";
 
@@ -13,8 +13,8 @@ const EditUserPage = () => {
     const history = useHistory();
     const [isLoading, setIsLoading] = useState(false);
     const [data, setData] = useState({
+        name: "",
         email: "",
-        password: "",
         profession: "",
         sex: "male",
         qualities: []
@@ -29,17 +29,16 @@ const EditUserPage = () => {
         }
     };
     const getQualities = (elements) => {
-        const qualitiesQrray = [];
+        const qualitiesArray = [];
         for (const elem of elements) {
-            for (const qualy in qualities) {
-                if (elem.value === qualities[qualy]._id) {
-                    qualitiesQrray.push(qualities[qualy]);
+            for (const quality in qualities) {
+                if (elem.value === qualities[quality]._id) {
+                    qualitiesArray.push(qualities[quality]);
                 }
             }
         }
-        return qualitiesQrray;
+        return qualitiesArray;
     };
-
     const handleSubmit = (e) => {
         e.preventDefault();
         const isValid = validate();
@@ -74,7 +73,7 @@ const EditUserPage = () => {
         if (data._id) setIsLoading(false);
     }, [data]);
 
-    const validatorConfog = {
+    const validatorConfig = {
         email: {
             isRequired: {
                 message: "Электронная почта обязательна для заполнения"
@@ -83,7 +82,6 @@ const EditUserPage = () => {
                 message: "Email введен некорректно"
             }
         },
-
         name: {
             isRequired: {
                 message: "Введите ваше имя"
@@ -98,7 +96,7 @@ const EditUserPage = () => {
         }));
     };
     const validate = () => {
-        const errors = validator(data, validatorConfog);
+        const errors = validator(data, validatorConfig);
         setErrors(errors);
         return Object.keys(errors).length === 0;
     };
@@ -127,8 +125,8 @@ const EditUserPage = () => {
                             <SelectField
                                 label="Выбери свою профессию"
                                 defaultOption="Choose..."
-                                name="profession"
                                 options={professions}
+                                name="profession"
                                 onChange={handleChange}
                                 value={data.profession}
                                 error={errors.profession}
@@ -148,9 +146,8 @@ const EditUserPage = () => {
                                 defaultValue={data.qualities}
                                 options={qualities}
                                 onChange={handleChange}
-                                values
                                 name="qualities"
-                                label="Выберите ваши качесвта"
+                                label="Выберите ваши качества"
                             />
                             <button
                                 type="submit"
